@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>المستخدمون — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="users.html" data-nav>المستخدمون</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+          <a class="btn secondary" href="#" data-action="logout">خروج</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section card">
+        <div
+          class="actions"
+          style="justify-content: space-between; align-items: center"
+        >
+          <h1 style="margin: 0">إدارة المستخدمين</h1>
+          <button class="btn" id="add-user">إضافة مستخدم</button>
+        </div>
+        <table class="table mt-3" id="users-table">
+          <thead>
+            <tr>
+              <th>الاسم</th>
+              <th>البريد</th>
+              <th>الدور</th>
+              <th class="right">إجراءات</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      const data = [
+        { name: "مدير النظام", email: "admin@company.com", role: "مسؤول" },
+        { name: "محلل أمني", email: "analyst@company.com", role: "محلل" },
+        { name: "قارئ تقارير", email: "viewer@company.com", role: "قارئ" },
+      ];
+      function render() {
+        const tbody = document.querySelector("#users-table tbody");
+        tbody.innerHTML = data
+          .map(
+            (u, i) => `
+        <tr>
+          <td>${u.name}</td>
+          <td>${u.email}</td>
+          <td>
+            <select onchange="data[${i}].role=this.value;"">
+              <option ${u.role === "محلل" ? "selected" : ""}>محلل</option>
+              <option ${u.role === "مسؤول" ? "selected" : ""}>مسؤول</option>
+              <option ${u.role === "قارئ" ? "selected" : ""}>قارئ</option>
+            </select>
+          </td>
+          <td class="right"><a class="btn secondary" href="#" onclick="data.splice(${i},1); render(); return false;">إزالة</a></td>
+        </tr>`
+          )
+          .join("");
+      }
+      document.getElementById("add-user").addEventListener("click", () => {
+        const name = prompt("اسم المستخدم");
+        if (!name) return;
+        const email = prompt("البريد");
+        if (!email) return;
+        data.push({ name, email, role: "محلل" });
+        render();
+      });
+      render();
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

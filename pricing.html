@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>الأسعار — تحقُّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand">
+          <span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          >
+        </a>
+        <nav class="nav-links">
+          <a href="index.html" data-nav>الرئيسية</a>
+          <a href="pricing.html" data-nav>الأسعار</a>
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="alerts.html" data-nav>التنبيهات</a>
+          <a href="reports.html" data-nav>التقارير</a>
+          <a href="about.html" data-nav>حولنا</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+          <a class="btn" href="login.html">اشترك الآن</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section">
+        <h1>الأسعار والاشتراكات</h1>
+        <p class="muted">خطط مرنة تناسب حجم شركتك ومتطلبات الامتثال.</p>
+
+        <div class="grid-3 mt-3">
+          <div class="card">
+            <h3 style="margin: 0">أساسي</h3>
+            <p class="muted">حتى ٥٠ موظفًا</p>
+            <h2>
+              <div class="value" id="kpi-total">—</div>
+              ج.م / شهر
+            </h2>
+            <ul class="muted">
+              <li>تنبيهات فورية</li>
+              <li>لوحة تحكم أساسية</li>
+              <li>دعم عبر البريد</li>
+            </ul>
+            <a class="btn" href="login.html">ابدأ</a>
+          </div>
+          <div class="card">
+            <h3 style="margin: 0">متقدم</h3>
+            <p class="muted">حتى ٣٠٠ موظف</p>
+            <h2>
+              <div class="value" id="kpi-total">—</div>
+              ج.م / شهر
+            </h2>
+            <ul class="muted">
+              <li>تقارير PDF/CSV</li>
+              <li>صلاحيات متعددة</li>
+              <li>دعم على مدار الساعة</li>
+            </ul>
+            <a class="btn" href="login.html">اشترك</a>
+          </div>
+          <div class="card">
+            <h3 style="margin: 0">مؤسسي</h3>
+            <p class="muted">أكثر من ٣٠٠ موظف</p>
+            <h2>حسب العرض</h2>
+            <ul class="muted">
+              <li>تكامل مخصص</li>
+              <li>اتفاقية مستوى خدمة</li>
+              <li>مدير نجاح مخصص</li>
+            </ul>
+            <a class="btn" href="login.html">تواصل معنا</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقُّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

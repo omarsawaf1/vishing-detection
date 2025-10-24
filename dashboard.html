@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>لوحة التحكم — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="alerts.html" data-nav>التنبيهات</a>
+          <a href="reports.html" data-nav>التقارير</a>
+          <a href="settings.html" data-nav>الإعدادات</a>
+          <a href="users.html" data-nav>المستخدمون</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+          <a class="btn secondary" href="#" data-action="logout">خروج</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section">
+        <h1>ملخص الأمان</h1>
+        <div class="stats">
+          <div class="kpi">
+            <div class="label muted">التنبيهات الكليّة</div>
+            <div class="value" id="kpi-total">—</div>
+          </div>
+          <div class="kpi">
+            <div class="label muted">الحرجة</div>
+            <div class="value" id="kpi-critical">—</div>
+          </div>
+          <div class="kpi">
+            <div class="label muted">آخر ٢٤ ساعة</div>
+            <div class="value" id="kpi-24h">—</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section grid-2">
+        <div class="card">
+          <h3 style="margin-top: 0">أنواع الهجمات</h3>
+          <canvas
+            id="pieChart"
+            width="380"
+            height="220"
+            style="max-width: 100%"
+          ></canvas>
+        </div>
+        <div class="card">
+          <h3 style="margin-top: 0">آخر التنبيهات</h3>
+          <table class="table" id="recent-alerts">
+            <thead>
+              <tr>
+                <th>المهاجم</th>
+                <th>الموظف</th>
+                <th>الوقت</th>
+                <th>الشدة</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <div class="right mt-2">
+            <a class="btn secondary" href="alerts.html">عرض الكل</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="card">
+          <h3 style="margin-top: 0">الهجمات عبر الزمن</h3>
+          <canvas
+            id="timelineChart"
+            width="900"
+            height="280"
+            style="max-width: 100%"
+          ></canvas>
+          <div class="muted mt-2">
+            يمكن التكبير/التصغير باستخدام عجلة الفأرة
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      (async function () {
+        const kpi = await window.TahaqquqAPI.fetchKPIs();
+        document.getElementById("kpi-total").textContent =
+          kpi.totalAlerts.toLocaleString("ar-EG");
+        document.getElementById("kpi-critical").textContent =
+          kpi.criticalAlerts.toLocaleString("ar-EG");
+        document.getElementById("kpi-24h").textContent =
+          kpi.last24h.toLocaleString("ar-EG");
+        const recent = await window.TahaqquqAPI.fetchAlerts({});
+        const tbody = document.querySelector("#recent-alerts tbody");
+        tbody.innerHTML = recent
+          .map(
+            (r) =>
+              `<tr><td>${r.attacker}</td><td>${r.user}</td><td>${r.startedAt}</td><td class="severity ${r.severity}">${r.severity}</td></tr>`
+          )
+          .join("");
+        document.getElementById("year").textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>

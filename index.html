@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تحقّقٌ — الحماية الذكية من التصيّد الصوتي</title>
+    <meta
+      name="description"
+      content="تحقّقٌ منصة مؤسسية لاكتشاف التصيّد الصوتي في الوقت الحقيقي وحماية الموظفين."
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand">
+          <span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          >
+        </a>
+        <nav class="nav-links">
+          <a href="index.html" data-nav>الرئيسية</a>
+          <a href="pricing.html" data-nav>الأسعار</a>
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="alerts.html" data-nav>التنبيهات</a>
+          <a href="reports.html" data-nav>التقارير</a>
+          <a href="about.html" data-nav>حولنا</a>
+        </nav>
+        <div class="nav-actions">
+          <button
+            class="theme-toggle"
+            type="button"
+            data-action="toggle-theme"
+            title="تبديل الوضع"
+          >
+            الوضع
+          </button>
+          <a class="btn secondary" href="login.html">تسجيل الدخول</a>
+          <a class="btn" href="pricing.html">ابدأ الآن</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container">
+          <div class="card" style="align-items: center">
+            <div style="max-width: 620px">
+              <span class="chip">أمان الاتصالات المؤسسية</span>
+              <h1>تحقّقٌ — كشف التصيّد الصوتي لحظة بلحظة</h1>
+              <p class="muted">
+                نرصد مكالمات موظفيك آليًا ونكشف محاولات الاحتيال الصوتي
+                (Vishing) قبل أن تُحدث ضررًا. تنبيهات فورية، لوحات متابعة،
+                وتقارير تنفيذية.
+              </p>
+              <div class="actions mt-3">
+                <!-- <a class="btn" href="dashboard.html">استعرض اللوحة</a> -->
+                <a class="btn" href="about.html">تعرّف أكثر</a>
+              </div>
+              <div class="stats">
+                <div class="kpi">
+                  <div class="label muted">التنبيهات الكليّة</div>
+                  <div class="value" id="kpi-total">—</div>
+                </div>
+                <div class="kpi">
+                  <div class="label muted">الحرجة</div>
+                  <div class="value" id="kpi-critical">—</div>
+                </div>
+                <div class="kpi">
+                  <div class="label muted">آخر ٢٤ ساعة</div>
+                  <div class="value" id="kpi-24h">—</div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="card"
+              style="
+                background: rgba(255, 255, 255, 0.03);
+                max-width: 520px;
+                width: 100%;
+              "
+            >
+              <h3 style="margin-top: 0">كيف يعمل؟</h3>
+              <ol class="muted">
+                <li>التطبيق يرسل تيار الصوت للواجهة الخلفية آنيًا.</li>
+                <li>محرك التحليل يكتشف الأنماط والعبارات الاحتيالية.</li>
+                <li>يُنشأ تنبيه ويُرسل للوحة التحكم والمسؤولين.</li>
+              </ol>
+              <div class="spacer"></div>
+              <h4 style="margin: 8px 0">أنواع الهجمات الشائعة</h4>
+              <ul class="muted">
+                <li>انتحال موظّف بنك</li>
+                <li>طلب بيانات حسّاسة</li>
+                <li>هندسة اجتماعية</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section grid-3">
+            <div class="card">
+              <h3 style="margin: 0 0 8px">تنبيهات فورية</h3>
+              <p class="muted">
+                إشعارات آنية بدرجة الخطورة ونسبة الثقة، مع تفاصيل المكالمة.
+              </p>
+            </div>
+            <div class="card">
+              <h3 style="margin: 0 0 8px">لوحة متابعة</h3>
+              <p class="muted">
+                مؤشرات رئيسية ورسوم توضح الأنواع والزمن والجهات المهاجمة.
+              </p>
+            </div>
+            <div class="card">
+              <h3 style="margin: 0 0 8px">تقارير وتنزيلات</h3>
+              <p class="muted">CSV وPDF لاجتماعات الامتثال والتدقيق الداخلي.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="right">
+          <a href="about.html" class="muted" style="text-decoration: none"
+            >حول المنصّة</a
+          >
+        </div>
+        <div>© <span id="year"></span> تحقّقٌ — جميع الحقوق محفوظة</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      (async function () {
+        try {
+          const kpi = await window.TahaqquqAPI.fetchKPIs();
+          document.getElementById("kpi-total").textContent =
+            kpi.totalAlerts.toLocaleString("ar-EG");
+          document.getElementById("kpi-critical").textContent =
+            kpi.criticalAlerts.toLocaleString("ar-EG");
+          document.getElementById("kpi-24h").textContent =
+            kpi.last24h.toLocaleString("ar-EG");
+        } catch {}
+        document.getElementById("year").textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>حولنا والأسئلة الشائعة — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="index.html" data-nav>الرئيسية</a>
+          <a href="about.html" data-nav>حولنا</a>
+          <a href="pricing.html" data-nav>الأسعار</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section card">
+        <h1 style="margin-top: 0">عن تحقّقٌ</h1>
+        <p class="muted">
+          رسالتنا: تمكين الشركات من حماية موظفيها من التصيّد الصوتي عبر تحليل
+          آني وواجهات بسيطة.
+        </p>
+      </section>
+
+      <section class="section card">
+        <h2 style="margin-top: 0">الأسئلة الشائعة</h2>
+        <details class="mt-2">
+          <summary><b>ما هو التصيّد الصوتي؟</b></summary>
+          <p class="muted">
+            هو احتيال عبر المكالمات الهاتفية لاستدراج الموظفين للإفصاح عن بيانات
+            حساسة.
+          </p>
+        </details>
+        <details class="mt-2">
+          <summary><b>كيف يتم الكشف؟</b></summary>
+          <p class="muted">
+            يستخدم النظام ذكاءً اصطناعياً لتحويل الصوت إلى نص بدقة عالية، ثم
+            يقوم نظام ذكاء اصطناعي آخر بتحليل النص الناتج بحثاً عن مؤشرات
+            التصيّد الصوتي أو الأنماط المشبوهة في المحادثة. عند اكتشاف محاولة
+            تصيّد، يتم إرسال تنبيه فوري للمسؤولين لاتخاذ الإجراء المناسب.
+          </p>
+        </details>
+        <details class="mt-2">
+          <summary><b>كيف نضمن سرية البيانات؟</b></summary>
+          <p class="muted">
+            يتم تسليم كامل البنية الخلفية (backend) للشركة عند شراء المنتج، بحيث
+            تبقى جميع البيانات داخل الشركة (on premise) ولا يتم نقلها إلى أي
+            خوادم خارجية، مما يضمن أقصى درجات الخصوصية والتحكم.
+          </p>
+        </details>
+        <details class="mt-2">
+          <summary><b>ماذا أفعل عند وصول تنبيه؟</b></summary>
+          <p class="muted">
+            ادخل للوحة التحكم، راجع التفاصيل، ثم علّم الحالة كمحلولة أو صعّدها.
+          </p>
+        </details>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

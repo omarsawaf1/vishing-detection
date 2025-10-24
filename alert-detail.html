@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تفاصيل التنبيه — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="alerts.html" data-nav>التنبيهات</a>
+          <a href="reports.html" data-nav>التقارير</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section">
+        <div class="actions">
+          <a class="btn secondary" href="alerts.html">عودة للتنبيهات</a>
+        </div>
+        <div class="grid-2 mt-3">
+          <div class="card">
+            <h2 style="margin-top: 0">
+              تفاصيل التنبيه <span id="alert-id" class="muted"></span>
+            </h2>
+            <div class="mt-2">
+              <div><b>رقم المهاجم:</b> <span id="attacker"></span></div>
+              <div><b>الموظف المستهدف:</b> <span id="user"></span></div>
+              <div><b>وقت المكالمة:</b> <span id="startedAt"></span></div>
+              <div><b>المدة:</b> <span id="duration"></span></div>
+              <div><b>نوع الهجوم:</b> <span id="type"></span></div>
+              <div>
+                <b>الخطورة:</b> <span id="severity" class="severity"></span>
+              </div>
+              <div><b>نسبة الثقة:</b> <span id="confidence"></span></div>
+            </div>
+          </div>
+          <div class="card">
+            <h3 style="margin-top: 0">الإجراءات</h3>
+            <div class="actions">
+              <button class="btn" id="mark-resolved">تعليم كمحلول</button>
+              <button class="btn secondary" id="escalate">تصعيد</button>
+            </div>
+            <div class="mt-3">
+              <label for="note">إضافة ملاحظة</label>
+              <textarea
+                id="note"
+                rows="4"
+                placeholder="اكتب ملاحظة للمحللين..."
+              ></textarea>
+              <div class="right mt-2">
+                <button class="btn" id="add-note">إضافة</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section card">
+          <h3 style="margin-top: 0">السجل الزمني</h3>
+          <ul
+            id="timeline"
+            class="muted"
+            style="margin: 0; padding-inline-start: 18px"
+          ></ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      function getParam(name) {
+        const url = new URL(location.href);
+        return url.searchParams.get(name);
+      }
+      const fallback = {
+        id: "ALR-1001",
+        attacker: "+20 100 555 1234",
+        user: "شريف سليمان",
+        startedAt: "2025-09-14 10:12",
+        duration: "00:03:21",
+        type: "انتحال موظف بنك",
+        severity: "critical",
+        confidence: 0.94,
+      };
+      (async function () {
+        const id = getParam("id");
+        const list = await window.TahaqquqAPI.fetchAlerts({});
+        const row = list.find((r) => r.id === id) || fallback;
+        document.getElementById("alert-id").textContent = row.id
+          ? `(${row.id})`
+          : "";
+        document.getElementById("attacker").textContent = row.attacker;
+        document.getElementById("user").textContent = row.user;
+        document.getElementById("startedAt").textContent = row.startedAt;
+        document.getElementById("duration").textContent = row.duration;
+        document.getElementById("type").textContent = row.type;
+        const sev = document.getElementById("severity");
+        sev.textContent = row.severity;
+        sev.classList.add(row.severity);
+        document.getElementById("confidence").textContent =
+          Math.round(row.confidence * 100) + "%";
+
+        const timeline = document.getElementById("timeline");
+        timeline.innerHTML = [
+          `تم إنشاء التنبيه (${row.severity}) — ${row.startedAt}`,
+          "أُبلغ المسؤول — بعد دقيقة",
+          "جاري المراجعة — فريق الأمن",
+        ]
+          .map((t) => `<li>${t}</li>`)
+          .join("");
+
+        document
+          .getElementById("mark-resolved")
+          .addEventListener("click", () => {
+            alert("تم تعليم الحالة كمحلولة");
+          });
+        document.getElementById("escalate").addEventListener("click", () => {
+          alert("تم التصعيد إلى المستوى الأعلى");
+        });
+        document.getElementById("add-note").addEventListener("click", () => {
+          const v = document.getElementById("note").value.trim();
+          if (!v) return;
+          timeline.insertAdjacentHTML("beforeend", `<li>ملاحظة: ${v}</li>`);
+          document.getElementById("note").value = "";
+        });
+        document.getElementById("year").textContent = new Date().getFullYear();
+      })();
+    </script>
+  </body>
+</html>

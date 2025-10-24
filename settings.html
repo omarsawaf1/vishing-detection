@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>الإعدادات — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="settings.html" data-nav>الإعدادات</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+          <a class="btn secondary" href="#" data-action="logout">خروج</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section grid-2">
+        <div class="card">
+          <h2 style="margin-top: 0">إعدادات الحساب</h2>
+          <label>اللغة</label>
+          <select>
+            <option>العربية</option>
+            <option>English</option>
+          </select>
+          <label class="mt-2">المظهر</label>
+          <select id="theme-select">
+            <option value="dark">داكن</option>
+            <option value="light">فاتح</option>
+          </select>
+          <label class="mt-2">كلمة المرور</label>
+          <input type="password" placeholder="••••••••" />
+          <div class="right mt-2"><button class="btn">حفظ</button></div>
+        </div>
+        <div class="card">
+          <h2 style="margin-top: 0">إعدادات الشركة</h2>
+          <label>حد الإنذار (نسبة الثقة)</label>
+          <input type="text" placeholder="مثال: 0.85" />
+          <label class="mt-2">إشعارات البريد</label>
+          <select>
+            <option>مفعّل</option>
+            <option>معطّل</option>
+          </select>
+          <div class="right mt-2"><button class="btn">تحديث</button></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

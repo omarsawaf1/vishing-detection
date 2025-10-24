@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>التقارير — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="alerts.html" data-nav>التنبيهات</a>
+          <a href="reports.html" data-nav>التقارير</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+          <a class="btn secondary" href="#" data-action="logout">خروج</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section grid-2">
+        <div class="card">
+          <h2 style="margin-top: 0">ملخص تقارير</h2>
+          <p class="muted">
+            قم بتحميل التقارير الدورية لأغراض الامتثال والتدقيق.
+          </p>
+          <div class="actions mt-2">
+            <button class="btn" onclick="alert('سيتم توليد CSV وهمي')">
+              تنزيل CSV
+            </button>
+            <button
+              class="btn secondary"
+              onclick="alert('سيتم توليد PDF وهمي')"
+            >
+              تنزيل PDF
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top: 0">مخططات</h3>
+          <div class="muted">
+            أماكن مخصصة للرسوم (أكثر الأرقام المهاجمة، أكثر الموظفين
+            استهدافًا...)
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>

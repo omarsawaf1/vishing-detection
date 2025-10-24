@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>تسجيل الدخول — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="index.html" data-nav>الرئيسية</a>
+          <a href="pricing.html" data-nav>الأسعار</a>
+          <a href="about.html" data-nav>حولنا</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section" style="max-width: 560px; margin-inline: auto">
+        <div class="card">
+          <div class="actions" style="margin-top: 0; gap: 16px">
+            <h1 style="margin: 0">الحساب</h1>
+            <div class="chip" id="mode-chip">وضع: دخول</div>
+          </div>
+
+          <form id="auth-form">
+            <div id="signup-name-wrap" style="display: none">
+              <label for="name">الاسم</label>
+              <input id="name" type="text" placeholder="الاسم الكامل" />
+            </div>
+
+            <label for="email">البريد الإلكتروني</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="name@company.com"
+              required
+            />
+
+            <label for="password">كلمة المرور</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              required
+            />
+
+            <div id="confirm-wrap" style="display: none">
+              <label for="confirm">تأكيد كلمة المرور</label>
+              <input id="confirm" type="password" placeholder="••••••••" />
+            </div>
+
+            <div class="actions mt-3">
+              <button class="btn" type="submit" id="submit-btn">دخول</button>
+              <a class="btn secondary" href="#" id="toggle-mode">إنشاء حساب</a>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+      (function () {
+        const form = document.getElementById("auth-form");
+        const modeChip = document.getElementById("mode-chip");
+        const toggle = document.getElementById("toggle-mode");
+        const submitBtn = document.getElementById("submit-btn");
+        const signupNameWrap = document.getElementById("signup-name-wrap");
+        const confirmWrap = document.getElementById("confirm-wrap");
+        let mode = "login";
+
+        function render() {
+          if (mode === "login") {
+            modeChip.textContent = "وضع: دخول";
+            submitBtn.textContent = "دخول";
+            toggle.textContent = "إنشاء حساب";
+            signupNameWrap.style.display = "none";
+            confirmWrap.style.display = "none";
+          } else {
+            modeChip.textContent = "وضع: تسجيل";
+            submitBtn.textContent = "إنشاء حساب";
+            toggle.textContent = "لدي حساب بالفعل";
+            signupNameWrap.style.display = "";
+            confirmWrap.style.display = "";
+          }
+        }
+        toggle.addEventListener("click", function (e) {
+          e.preventDefault();
+          mode = mode === "login" ? "signup" : "login";
+          render();
+        });
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          if (mode === "login") {
+            window.TahaqquqAuth.login();
+            location.href = "dashboard.html";
+          } else {
+            const pass = document.getElementById("password").value.trim();
+            const confirm = document.getElementById("confirm").value.trim();
+            if (!pass || pass !== confirm) {
+              alert("الرجاء التأكد من كلمة المرور وتأكيدها");
+              return;
+            }
+            window.TahaqquqAuth.login();
+            location.href = "dashboard.html";
+          }
+        });
+        render();
+      })();
+    </script>
+  </body>
+</html>

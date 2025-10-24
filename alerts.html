@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>التنبيهات — تحقّقٌ</title>
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav">
+        <a href="index.html" class="brand"
+          ><span class="logo" aria-hidden="true"
+            ><span class="logo-text">تحقّقٌ</span></span
+          ></a
+        >
+        <nav class="nav-links">
+          <a href="dashboard.html" data-nav>لوحة التحكم</a>
+          <a href="alerts.html" data-nav>التنبيهات</a>
+          <a href="reports.html" data-nav>التقارير</a>
+        </nav>
+        <div class="nav-actions">
+          <button class="theme-toggle" type="button" data-action="toggle-theme">
+            الوضع
+          </button>
+          <a class="btn secondary" href="#" data-action="logout">خروج</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="section card">
+        <h1 style="margin-top: 0">التنبيهات</h1>
+        <div class="form-row">
+          <div>
+            <label>البحث</label>
+            <input id="q" type="text" placeholder="رقم الهاتف أو اسم الموظف" />
+          </div>
+          <div>
+            <label>الشدة</label>
+            <select id="sev">
+              <option value="all">الكل</option>
+              <option value="critical">حرج</option>
+              <option value="high">عالٍ</option>
+              <option value="medium">متوسط</option>
+              <option value="low">منخفض</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row mt-2">
+          <div>
+            <label>النوع</label>
+            <select id="type">
+              <option value="all">الكل</option>
+              <option>انتحال موظف بنك</option>
+              <option>هندسة اجتماعية</option>
+              <option>طلب بيانات حساسة</option>
+            </select>
+          </div>
+          <div class="actions" style="align-self: end">
+            <button class="btn" id="apply">تطبيق</button>
+            <a class="btn secondary" href="#" id="reset">إعادة ضبط</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section card">
+        <table class="table" id="alerts-table">
+          <thead>
+            <tr>
+              <th>المهاجم</th>
+              <th>الموظف</th>
+              <th>الوقت</th>
+              <th>المدة</th>
+              <th>النوع</th>
+              <th>الشدة</th>
+              <th>الثقة</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> تحقّقٌ</div>
+      </div>
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+    <script>
+      async function load() {
+        const query = document.getElementById("q").value.trim();
+        const severity = document.getElementById("sev").value;
+        const type = document.getElementById("type").value;
+        const rows = await window.TahaqquqAPI.fetchAlerts({
+          query,
+          severity,
+          type,
+        });
+        const tbody = document.querySelector("#alerts-table tbody");
+        tbody.innerHTML = rows
+          .map(
+            (r) => `
+        <tr onclick="location.href='alert-detail.html?id=${
+          r.id
+        }'" style="cursor:pointer">
+          <td class="nowrap">${r.attacker}</td>
+          <td>${r.user}</td>
+          <td>${r.startedAt}</td>
+          <td>${r.duration}</td>
+          <td>${r.type}</td>
+          <td class="severity ${r.severity}">${r.severity}</td>
+          <td>${Math.round(r.confidence * 100)}%</td>
+        </tr>`
+          )
+          .join("");
+      }
+      document.getElementById("apply").addEventListener("click", load);
+      document.getElementById("reset").addEventListener("click", (e) => {
+        e.preventDefault();
+        document.getElementById("q").value = "";
+        document.getElementById("sev").value = "all";
+        document.getElementById("type").value = "all";
+        load();
+      });
+      load();
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
